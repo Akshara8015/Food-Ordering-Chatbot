@@ -3,7 +3,9 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 import db_helper
 import generic_helper
+
 app = FastAPI()
+
 inprogress_orders = {}
 
 @app.post("/")
@@ -26,7 +28,6 @@ async def handle_request(request: Request):
     }
 
     return intent_handler_dict[intent](parameters, session_id)
-
 
 def save_to_db(order: dict):
     next_order_id = db_helper.get_next_order_id()
@@ -82,7 +83,11 @@ def add_to_order(parameters: dict, session_id: str):
 
         if session_id in inprogress_orders:
             current_food_dict = inprogress_orders[session_id]
-            current_food_dict.update(new_food_dict)
+            for food, qty in new_food_dict.items():
+                if food in current_food_dict:
+                    current_food_dict[food] += qty
+                else:
+                    current_food_dict[food] = qty
             inprogress_orders[session_id] = current_food_dict
         else:
             inprogress_orders[session_id] = new_food_dict
