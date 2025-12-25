@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pandeyji Eater | Fast Food Restaurant</title>
   <link href = "style.css" rel = "stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1" rel="stylesheet">
 </head>
 <body>
 
@@ -31,17 +31,18 @@
     </div>
 
     <!-- CHATBOT -->
-    <div class="chatbot-section">
-      <div class="chatbot-text">
-        <h2>Order via Chatbot 🤖</h2>
-        <p>
-          Chat with our smart food-ordering chatbot to place orders, add or remove items, and track your food in real time.
-          Simple, fast, and convenient!
-        </p>
-      </div>
+<!--    <div class="chatbot-section">-->
+<!--      <div class="chatbot-text">-->
+<!--        <h2>Order via Chatbot 🤖</h2>-->
+<!--        <p>-->
+<!--          Chat with our smart food-ordering chatbot to place orders, add or remove items, and track your food in real time.-->
+<!--          Simple, fast, and convenient!-->
+<!--        </p>-->
+<!--      </div>-->
 
       <div class="chatbot-box">
-        <iframe allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/fae71728-636c-4774-b9c6-b16b33d96bd5"></iframe>
+        <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+        <df-messenger  intent="WELCOME" chat-title="mira-chatbot-for-food-delivery" agent-id="fae71728-636c-4774-b9c6-b16b33d96bd5" language-code="en"></df-messenger>
       </div>
     </div>
 
