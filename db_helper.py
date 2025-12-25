@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import datetime, timedelta
 global cnx
 
 cnx = mysql.connector.connect(
@@ -109,6 +110,37 @@ def get_order_status(order_id):
         return result[0]
     else:
         return None
+
+def update_order_status():
+    cursor = cnx.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM order_tracking WHERE status != 'Delivered'")
+    orders = cursor.fetchall()
+
+    now = datetime.now()
+
+    for order in orders:
+        elapsed = (now - order["order_time"]).seconds / 60
+
+        if elapsed < 5:
+            new_status = "Order Placed"
+        elif elapsed < 15:
+            new_status = "Preparing"
+        elif elapsed < 25:
+            new_status = "Out for Delivery"
+        else:
+            new_status = "Delivered"
+
+        if new_status != order["status"]:
+            update_query = """
+            UPDATE orders
+            SET status=%s, last_updated=%s
+            WHERE order_id=%s
+            """
+            cursor.execute(update_query, (new_status, now, order["order_id"]))
+
+    cnx.commit()
+    cursor.close()
 
 
 if __name__ == "__main__":
